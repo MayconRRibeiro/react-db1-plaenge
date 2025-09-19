@@ -1,0 +1,24 @@
+.exemplo-container {
+  border-radius: 8px;
+  border: 2px solid #f43f5e;
+  background: #ffe4e6;
+  padding: 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 8px rgba(244, 63, 94, 0.08);
+}
+.exemplo-container h2 {
+  color: #f43f5e;
+  margin-bottom: 12px;
+}
+.exemplo-btn {
+  background: #f43f5e;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  cursor: pointer;
+  margin-top: 8px;
+}
+.exemplo-btn:hover {
+  background: #be123c;
+}

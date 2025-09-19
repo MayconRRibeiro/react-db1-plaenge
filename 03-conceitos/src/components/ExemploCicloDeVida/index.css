@@ -1,0 +1,12 @@
+.exemplo-container {
+  border-radius: 8px;
+  border: 2px solid #db2777;
+  background: #fdf2f8;
+  padding: 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 8px rgba(219, 39, 119, 0.08);
+}
+.exemplo-container h2 {
+  color: #db2777;
+  margin-bottom: 12px;
+}

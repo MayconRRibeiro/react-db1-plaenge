@@ -1,0 +1,25 @@
+.exemplo-container {
+  border-radius: 8px;
+  border: 2px solid #a21caf;
+  background: #f3e8ff;
+  padding: 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 8px rgba(162, 28, 175, 0.08);
+}
+.exemplo-container h2 {
+  color: #a21caf;
+  margin-bottom: 12px;
+}
+.exemplo-lista {
+  list-style: none;
+  padding: 0;
+}
+.exemplo-lista-item {
+  background: #a21caf;
+  color: #fff;
+  border-radius: 4px;
+  padding: 6px 12px;
+  margin-bottom: 6px;
+  margin-right: 8px;
+  display: inline-block;
+}
