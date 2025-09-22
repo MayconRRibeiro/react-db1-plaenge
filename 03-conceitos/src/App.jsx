@@ -2,6 +2,7 @@ import { createRoot } from "react-dom/client";
 import { useState } from "react";
 import ExemploPropsChildren from "./components/ExemploPropsChildren";
 import Contador from "./components/ExemploEstado";
+import ExemploMultiplosEstados from "./components/ExemploMultiplosEstados";
 import ExemploCicloDeVida from "./components/ExemploCicloDeVida";
 import ExemploRenderizacaoCondicional from "./components/ExemploRenderizacaoCondicional";
 import ExemploRenderizacaoLista from "./components/ExemploRenderizacaoLista";
@@ -29,6 +30,7 @@ const App = () => {
       ),
     },
     { id: "estado", titulo: "Controle de Estado", componente: <Contador /> },
+    { id: "estados-multiplos", titulo: "Controle de Estado - Multiplos", componente: <ExemploMultiplosEstados /> },
     { id: "ciclo-vida", titulo: "Ciclo de Vida", componente: <ExemploCicloDeVida /> },
     {
       id: "renderizacao-condicional",

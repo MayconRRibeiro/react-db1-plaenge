@@ -3,6 +3,7 @@ import { useState } from "react";
 
 const ExemploRenderizacaoCondicional = () => {
   const [logado, setLogado] = useState(false);
+
   return (
     <div className="exemplo-container">
       <h2>Renderização Condicional</h2>
