@@ -1,0 +1,47 @@
+:root {
+  --purple: #6b46c1;
+  --beige: #f5f5dc;
+  --charcoal: #36454f;
+  --yellow: #fbbf24;
+  --coal: #1f2937;
+}
+
+.light {
+  --btn-bg: var(--purple);
+  --btn-color: var(--beige);
+  background: var(--beige);
+  color: var(--charcoal);
+  min-height: 100vh;
+  transition: all 0.3s ease;
+}
+
+.dark {
+  --btn-bg: var(--yellow);
+  --btn-color: var(--charcoal);
+  background: var(--coal);
+  color: var(--beige);
+  min-height: 100vh;
+  transition: all 0.3s ease;
+}
+
+main {
+  display: grid;
+  place-content: center;
+  min-height: 100vh;
+}
+
+button {
+  background: var(--btn-bg);
+  color: var(--btn-color);
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
