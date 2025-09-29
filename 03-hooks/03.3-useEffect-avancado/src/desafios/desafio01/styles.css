@@ -1,0 +1,50 @@
+:root {
+  --bg-primary: #0f172a;
+  --text-primary: #f8fafc;
+  --text-accent: #fbbf24;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+.relogio-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+h1 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+}
+
+.relogio-horario {
+  font-size: 4rem;
+  font-weight: 700;
+  color: var(--text-accent);
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
+}
+
+@media (max-width: 768px) {
+  .relogio-horario {
+    font-size: 3rem;
+  }
+  
+  h1 {
+    font-size: 1.25rem;
+  }
+}
