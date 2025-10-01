@@ -1,8 +1,8 @@
 import { createRoot } from "react-dom/client";
-import Desafio06 from "../desafios/desafio06";
+import Desafio01 from "../desafios/desafio01";
 
 const App = () => {
-  return <Desafio06 />;
+  return <Desafio01 />;
 };
 
 const container = document.getElementById("root");

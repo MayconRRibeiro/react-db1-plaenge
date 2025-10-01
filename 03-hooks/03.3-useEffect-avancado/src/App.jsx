@@ -1,8 +1,8 @@
 import { createRoot } from "react-dom/client";
-import ExemploUseEffectAvancado from "./components/ExemploUseEffectAvancado";
+import UseEffectAvancado from "./exemplos/UseEffectAvancado";
 
 const App = () => {
-  return <ExemploUseEffectAvancado />;
+  return <UseEffectAvancado />;
 };
 
 const container = document.getElementById("root");
