@@ -1,0 +1,186 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --bg-primary: #0f172a;
+  --text-primary: #f8fafc;
+  --text-accent: #fbbf24;
+  --border-color: #334155;
+  --input-bg: #1e293b;
+  --input-border: #475569;
+  --input-focus: #3b82f6;
+  --note-bg-1: #374151;
+  --note-bg-2: #fbbf24;
+  --note-text-2: #1e293b;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  font-optical-sizing: auto;
+}
+
+.desafio-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  color: var(--text-primary);
+  text-align: center;
+  letter-spacing: -0.025em;
+}
+
+.notes-wrapper {
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 0 16px;
+  max-width: 600px;
+  width: 100%;
+  background: var(--input-bg);
+}
+
+.note-form {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 16px 0;
+  border-top: 1px solid var(--border-color);
+  margin-top: 8px;
+}
+
+.note-input {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  background: var(--bg-primary);
+  border: 2px solid var(--input-border);
+  border-radius: 0.5rem;
+  color: var(--text-primary);
+  transition: border-color 0.2s ease;
+}
+
+.note-input:focus {
+  outline: none;
+  border-color: var(--input-focus);
+}
+
+.note-input::placeholder {
+  color: #64748b;
+}
+
+.submit-button {
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  font-size: 0.875rem;
+  background: var(--text-accent);
+  color: var(--bg-primary);
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.submit-button:hover {
+  background: #f59e0b;
+  transform: translateY(-1px);
+}
+
+.submit-button:active {
+  transform: translateY(0);
+}
+
+.notes-list {
+  margin: 16px 0 0 0;
+  padding: 0 8px 0 0;
+  height: 300px;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+}
+
+.notes-list li {
+  display: inline-flex;
+  align-self: flex-start;
+  background: var(--note-bg-1);
+  padding: 12px 16px;
+  border-radius: 8px 8px 8px 0px;
+  margin-top: 16px;
+  font-size: 14px;
+  font-weight: 400;
+  max-width: 400px;
+  line-height: 1.5;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+.notes-list li:nth-child(2n) {
+  border-radius: 8px 8px 0px 8px;
+  align-self: flex-end;
+  background: var(--note-bg-2);
+  color: var(--note-text-2);
+}
+
+.notes-list li:last-child {
+  margin-bottom: 20px;
+}
+
+/* Scrollbar personalizada */
+.notes-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.notes-list::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+  border-radius: 4px;
+}
+
+.notes-list::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 4px;
+}
+
+.notes-list::-webkit-scrollbar-thumb:hover {
+  background: var(--input-border);
+}
+
+@media (max-width: 768px) {
+  .desafio-container {
+    padding: 1rem;
+  }
+  
+  h1 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .notes-wrapper {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+  
+  .notes-list {
+    height: 250px;
+  }
+  
+  .notes-list li {
+    font-size: 13px;
+    max-width: 300px;
+  }
+}

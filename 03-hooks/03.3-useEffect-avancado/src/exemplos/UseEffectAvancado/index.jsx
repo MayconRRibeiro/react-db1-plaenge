@@ -50,8 +50,6 @@ export default function ExemploUseEffectAvancado() {
 
   if (photo === null) return <p>Carregando...</p>;
 
-  console.log({ id, loading, error, photo });
-
   return (
     <div className="container">
       <div className="navigation">
