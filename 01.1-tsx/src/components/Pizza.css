@@ -1,0 +1,10 @@
+.pizza {
+  line-height: 1.5;
+  border: 1px solid palegreen;
+}
+
+.pizza h1 {
+  font-weight: normal;
+  color: crimson;
+  font-size: 24px;
+}
