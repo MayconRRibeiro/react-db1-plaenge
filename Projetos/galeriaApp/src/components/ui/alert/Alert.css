@@ -1,0 +1,39 @@
+.alert {
+  width: 100%;
+  padding: 1rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+}
+
+.alert-title {
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.alert-description {
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+}
+
+/* Variants */
+.alert-default {
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+.alert-destructive {
+  background-color: oklch(from var(--destructive) l c h / 0.1);
+  color: var(--destructive);
+  border-color: oklch(from var(--destructive) l c h / 0.5);
+}
+
+.alert-warning {
+  background-color: oklch(from var(--warning) l c h / 0.1);
+  color: var(--warning);
+  border-color: oklch(from var(--warning) l c h / 0.5);
+}
+.alert-success {
+  background-color: oklch(from var(--success) l c h / 0.1);
+  color: var(--success);
+  border-color: oklch(from var(--success) l c h / 0.5);
+}
