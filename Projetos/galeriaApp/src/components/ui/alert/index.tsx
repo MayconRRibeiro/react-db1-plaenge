@@ -1,5 +1,5 @@
 import type { PropsWithChildren } from "react";
-import "./Alert.css";
+import "./Alert.scss";
 
 interface AlertProps {
   variant?: "default" | "destructive" | "warning" | "success";

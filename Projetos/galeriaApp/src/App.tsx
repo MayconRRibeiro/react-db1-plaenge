@@ -1,7 +1,7 @@
 import { createRoot } from "react-dom/client";
 import { StrictMode } from "react";
 import { Button } from "./components/ui/button";
-import "./global.css";
+import "./global.scss";
 import {
   ComponentGroupShowCase,
   ComponentGroupTitle,

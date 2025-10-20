@@ -1,5 +1,5 @@
 import type { ButtonHTMLAttributes, PropsWithChildren } from "react";
-import "./Button.css";
+import "./Button.scss";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   size?: "default" | "sm" | "lg";
