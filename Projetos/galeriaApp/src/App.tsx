@@ -1,5 +1,5 @@
 import { createRoot } from "react-dom/client";
-import { StrictMode } from "react";
+import { StrictMode, useState, useEffect } from "react";
 import { Button } from "./components/ui/button";
 import "./global.scss";
 import {
@@ -10,10 +10,21 @@ import {
 import { Alert, AlertDescription, AlertTitle } from "./components/ui/alert";
 
 const App = () => {
+  const [theme, setTheme] = useState("light");
+
+  const onHandleToggleTheme = () => {
+    const newTheme = theme === "light" ? "dark" : "light";
+    setTheme(newTheme);
+    document.documentElement.classList.toggle("dark", newTheme === "dark");
+  };
+
   return (
     <div className="container">
-      <header>
+      <header className="header">
         <h1>Galeria de componentes</h1>
+        <button onClick={onHandleToggleTheme}>
+          {theme === "light" ? "☀️" : "🌙"}
+        </button>
       </header>
 
       <section className="section">
