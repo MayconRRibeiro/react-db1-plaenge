@@ -1,5 +1,7 @@
+import { Button } from "@/components/ui/button";
+
 function Home() {
-  return <h3 className="text-amber-300">Clean React + Vite Template</h3>;
+  return <Button size={"lg"}>Clique Aqui !!</Button>;
 }
 
 export default Home;
