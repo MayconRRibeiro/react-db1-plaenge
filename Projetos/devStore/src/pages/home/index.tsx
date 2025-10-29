@@ -4,22 +4,14 @@ import {
   InputGroupInput,
   InputGroupAddon,
 } from "@/components/ui/input-group";
-import {
-  Heart,
-  Lock,
-  SearchIcon,
-  Shield,
-  ShoppingCart,
-  Store,
-  User,
-} from "lucide-react";
+import { Heart, SearchIcon, ShoppingCart, Store, User } from "lucide-react";
 import { AdminBanner } from "./adminBanner";
 
 function Home() {
   return (
     <div className="min-h-screen">
       <header className="border-b py-4">
-        <div className="container mx-auto px-4 flex items-center justify-between">
+        <div className="container mx-auto flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Store className="size-8" />
             <span className="text-xl font-semibold">DevStore</span>
@@ -45,6 +37,17 @@ function Home() {
       </header>
 
       <AdminBanner />
+
+      <section className="bg-linear-to-r from-gray-950 to-gray-950/80 py-20">
+        <div className="container mx-auto">
+          <h1 className="text-5xl text-white mb-4">Bem-vindo à DevStore</h1>
+          <p className="text-xl font-thin text-white mb-6 max-w-2xl">
+            Os melhores produtos com os melhores preços. Entrega rápida e segura
+            para todo o Brasil.
+          </p>
+          <Button variant="secondary">Ver Produtos</Button>
+        </div>
+      </section>
     </div>
   );
 }
