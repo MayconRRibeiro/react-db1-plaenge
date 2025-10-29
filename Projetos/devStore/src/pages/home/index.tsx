@@ -4,7 +4,16 @@ import {
   InputGroupInput,
   InputGroupAddon,
 } from "@/components/ui/input-group";
-import { Heart, SearchIcon, ShoppingCart, Store, User } from "lucide-react";
+import {
+  Heart,
+  Lock,
+  SearchIcon,
+  Shield,
+  ShoppingCart,
+  Store,
+  User,
+} from "lucide-react";
+import { AdminBanner } from "./adminBanner";
 
 function Home() {
   return (
@@ -34,6 +43,8 @@ function Home() {
           </div>
         </div>
       </header>
+
+      <AdminBanner />
     </div>
   );
 }
