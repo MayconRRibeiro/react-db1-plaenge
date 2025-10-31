@@ -4,8 +4,19 @@ import {
   InputGroupInput,
   InputGroupAddon,
 } from "@/components/ui/input-group";
-import { Heart, SearchIcon, ShoppingCart, Store, User } from "lucide-react";
+import {
+  Heart,
+  SearchIcon,
+  Shirt,
+  ShoppingBag,
+  ShoppingCart,
+  Smartphone,
+  Store,
+  User,
+  Watch,
+} from "lucide-react";
 import { AdminBanner } from "./adminBanner";
+import { CardCategoria } from "@/components/card-categoria";
 
 function Home() {
   return (
@@ -16,7 +27,7 @@ function Home() {
             <Store className="size-8" />
             <span className="text-xl font-semibold">DevStore</span>
           </div>
-          <InputGroup className="max-w-xl">
+          <InputGroup className="max-w-xl mx-4">
             <InputGroupInput placeholder="Buscar produtos..." />
             <InputGroupAddon>
               <SearchIcon />
@@ -48,6 +59,26 @@ function Home() {
           <Button variant="secondary">Ver Produtos</Button>
         </div>
       </section>
+
+      <section className="w-full px-12 py-12">
+        <h2 className="text-3xl text-center mb-8 text-gray-900">Categorias</h2>
+        <div className="grid grid-cols-4 gap-4 max-w-6xl mx-auto">
+          <CardCategoria icon={Smartphone} title="Eletrônicos" />
+          <CardCategoria icon={ShoppingBag} title="Calçados" />
+          <CardCategoria icon={Watch} title="Relógios" />
+          <CardCategoria icon={Shirt} title="Roupas" />
+        </div>
+      </section>
+
+      <footer className="w-full bg-gray-100 py-12 px-12 text-center">
+        <h2 className="mb-4 text-3xl text-gray-900">Frete Grátis</h2>
+        <p className="text-gray-600 mb-6">
+          Em compras acima de R$ 200,00 para todo o Brasil
+        </p>
+        <Button className="text-white px-6 py-2 rounded-lg text-sm">
+          Comprar Agora
+        </Button>
+      </footer>
     </div>
   );
 }
