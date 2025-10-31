@@ -20,6 +20,7 @@ createRoot(document.getElementById("root")!).render(
           <Route path="/wish-list" element={<WishListPage />} />
           <Route path="/products-list" element={<ProductsListPage />} />
         </Route>
+
         <Route path="*" element={<Navigate to={"/"} replace />} />
       </Routes>
     </BrowserRouter>
