@@ -11,4 +11,6 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  envPrefix: "DEVSTORE",
+  envDir: "./src/env/",
 });

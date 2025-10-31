@@ -6,7 +6,7 @@ import { CardCategoria } from "@/components/card-categoria";
 function HomePage() {
   return (
     <>
-      <AdminBanner />
+      {import.meta.env.DEVSTORE_ADMIN === "admin" ? <AdminBanner /> : null}
 
       <section className="bg-linear-to-r from-gray-950 to-gray-950/80 py-20">
         <div className="container mx-auto">
