@@ -4,7 +4,7 @@ import {
   InputGroupInput,
   InputGroupAddon,
 } from "@/components/ui/input-group";
-import { Heart, SearchIcon, ShoppingCart, Store, User } from "lucide-react";
+import { Heart, SearchIcon, ShoppingCart, Store, UserCog } from "lucide-react";
 import { Outlet, useNavigate } from "react-router";
 
 export const StoreLayout = () => {
@@ -39,8 +39,12 @@ export const StoreLayout = () => {
             >
               <ShoppingCart className="size-4" />
             </Button>
-            <Button size="icon" variant="ghost">
-              <User className="size-4" />
+            <Button
+              size="icon"
+              variant="ghost"
+              onClick={() => navigate("/login")}
+            >
+              <UserCog className="size-4" />
             </Button>
           </div>
         </div>
