@@ -1,6 +1,12 @@
 import { StrictMode, type PropsWithChildren } from "react";
 import { createRoot } from "react-dom/client";
-import { BrowserRouter, Navigate, Route, Routes } from "react-router";
+import {
+  BrowserRouter,
+  Navigate,
+  Route,
+  Routes,
+  useLocation,
+} from "react-router";
 
 import "./index.css";
 
@@ -21,8 +27,13 @@ const SettingsPage = () => <h1>Page - Configuracoes</h1>;
 
 const RequireAuth = ({ children }: PropsWithChildren) => {
   const { authed } = useAuthContext();
+  const location = useLocation();
 
-  return authed ? children : <Navigate to={"/login"} replace />;
+  return authed ? (
+    children
+  ) : (
+    <Navigate to={"/login"} replace state={{ path: location.pathname }} />
+  );
 };
 
 createRoot(document.getElementById("root")!).render(
