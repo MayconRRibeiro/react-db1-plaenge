@@ -23,13 +23,17 @@ import { AdminLayout } from "@/layouts/admin-layout";
 const ProductPage = () => <h1>Page - Visualizar Produto</h1>;
 // Private
 const DashboardPage = () => <h1>Page - Dashboard</h1>;
-const SettingsPage = () => <h1>Page - Configuracoes</h1>;
+const ProductsPage = () => <h1>Page - Produtos</h1>;
+const OrdersPage = () => <h1>Page - Pedidos</h1>;
+const CustomersPage = () => <h1>Page - Clientes</h1>;
+const ReportsPage = () => <h1>Page - Relatórios</h1>;
+const SettingsPage = () => <h1>Page - Configurações</h1>;
 
 const RequireAuth = ({ children }: PropsWithChildren) => {
-  const { authed } = useAuthContext();
+  const { user } = useAuthContext();
   const location = useLocation();
 
-  return authed ? (
+  return user?.isAdmin ? (
     children
   ) : (
     <Navigate to={"/login"} replace state={{ path: location.pathname }} />
@@ -51,23 +55,19 @@ createRoot(document.getElementById("root")!).render(
 
           <Route path="/login" element={<LoginPage />} />
 
-          <Route element={<AdminLayout />}>
-            <Route
-              path="/dashboard"
-              element={
-                <RequireAuth>
-                  <DashboardPage />
-                </RequireAuth>
-              }
-            />
-            <Route
-              path="/settings"
-              element={
-                <RequireAuth>
-                  <SettingsPage />
-                </RequireAuth>
-              }
-            />
+          <Route
+            element={
+              <RequireAuth>
+                <AdminLayout />
+              </RequireAuth>
+            }
+          >
+            <Route path="/dashboard" element={<DashboardPage />} />
+            <Route path="/products" element={<ProductsPage />} />
+            <Route path="/orders" element={<OrdersPage />} />
+            <Route path="/customers" element={<CustomersPage />} />
+            <Route path="/reports" element={<ReportsPage />} />
+            <Route path="/settings" element={<SettingsPage />} />
           </Route>
 
           <Route path="*" element={<Navigate to={"/"} replace />} />

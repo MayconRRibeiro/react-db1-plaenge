@@ -1,8 +1,14 @@
 import React, { useState, type PropsWithChildren } from "react";
 
+export interface User {
+  name: string;
+  email: string;
+  isAdmin: boolean;
+}
+
 interface AuthContextProps {
-  authed: boolean;
-  login: () => Promise<void>;
+  user: User | null;
+  login: (userData: User) => Promise<void>;
   logout: () => Promise<void>;
 }
 
@@ -16,21 +22,25 @@ export const useAuthContext = () => {
 };
 
 export const AuthProvider = ({ children }: PropsWithChildren) => {
-  const [authed, setAuthed] = useState(false);
+  const [user, setUser] = useState<User | null>(null);
 
-  const login = () =>
+  const login = (userData: User) =>
     new Promise<void>((resolve) => {
-      setAuthed(true);
+      setUser(userData);
       resolve();
     });
 
   const logout = () =>
     new Promise<void>((resolve) => {
-      setAuthed(false);
+      setUser(null);
       resolve();
     });
 
-  const contextValue = { authed, login, logout };
+  const contextValue = {
+    user,
+    login,
+    logout,
+  };
 
   return (
     <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>

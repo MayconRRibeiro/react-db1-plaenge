@@ -18,10 +18,12 @@ export const LoginPage = () => {
   const { login } = useAuthContext();
   const { state } = useLocation();
 
-  const handleClick = () => {
-    login().then(() => {
-      navigate(state?.path ?? "/dashboard");
-    });
+  const handleSubmit = () => {
+    login({ name: "Admin", email: "admin@dev.store", isAdmin: true }).then(
+      () => {
+        navigate(state?.path ?? "/dashboard");
+      }
+    );
   };
 
   return (
@@ -42,6 +44,10 @@ export const LoginPage = () => {
           <form>
             <div className="flex flex-col gap-6">
               <div className="grid gap-2">
+                <Label htmlFor="name">Nome</Label>
+                <Input id="name" type="text" placeholder="Digite seu nome" />
+              </div>
+              <div className="grid gap-2">
                 <Label htmlFor="email">Email</Label>
                 <Input
                   id="email"
@@ -50,20 +56,11 @@ export const LoginPage = () => {
                   required
                 />
               </div>
-              <div className="grid gap-2">
-                <Label htmlFor="password">Password</Label>
-                <Input
-                  id="password"
-                  type="password"
-                  placeholder="••••••"
-                  required
-                />
-              </div>
             </div>
           </form>
         </CardContent>
         <CardFooter>
-          <Button type="submit" onClick={handleClick}>
+          <Button type="submit" onClick={handleSubmit}>
             Entrar
           </Button>
         </CardFooter>
