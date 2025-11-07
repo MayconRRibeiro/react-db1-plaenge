@@ -19,6 +19,9 @@ import { AuthProvider, useAuthContext } from "@/context/auth.context";
 import { LoginPage } from "@/pages/login-page";
 import { AdminLayout } from "@/layouts/admin-layout";
 import { AdminProductsPage } from "@/pages/admin-products-page";
+import { QueryClientProvider } from "@tanstack/react-query";
+import { queryClient } from "@/lib/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 // Public
 const ProductPage = () => <h1>Page - Visualizar Produto</h1>;
@@ -43,36 +46,39 @@ const RequireAuth = ({ children }: PropsWithChildren) => {
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <BrowserRouter>
-      <AuthProvider>
-        <Routes>
-          <Route element={<StoreLayout />}>
-            <Route index element={<HomePage />} />
-            <Route path="/products-list" element={<ProductsListPage />} />
-            <Route path="/product/:id" element={<ProductPage />} />
-            <Route path="/wish-list" element={<WishListPage />} />
-            <Route path="/cart" element={<CartPage />} />
-          </Route>
+      <QueryClientProvider client={queryClient}>
+        <AuthProvider>
+          <Routes>
+            <Route element={<StoreLayout />}>
+              <Route index element={<HomePage />} />
+              <Route path="/products-list" element={<ProductsListPage />} />
+              <Route path="/product/:id" element={<ProductPage />} />
+              <Route path="/wish-list" element={<WishListPage />} />
+              <Route path="/cart" element={<CartPage />} />
+            </Route>
 
-          <Route path="/login" element={<LoginPage />} />
+            <Route path="/login" element={<LoginPage />} />
 
-          <Route
-            element={
-              <RequireAuth>
-                <AdminLayout />
-              </RequireAuth>
-            }
-          >
-            <Route path="/dashboard" element={<DashboardPage />} />
-            <Route path="/products" element={<AdminProductsPage />} />
-            <Route path="/orders" element={<OrdersPage />} />
-            <Route path="/customers" element={<CustomersPage />} />
-            <Route path="/reports" element={<ReportsPage />} />
-            <Route path="/settings" element={<SettingsPage />} />
-          </Route>
+            <Route
+              element={
+                <RequireAuth>
+                  <AdminLayout />
+                </RequireAuth>
+              }
+            >
+              <Route path="/dashboard" element={<DashboardPage />} />
+              <Route path="/products" element={<AdminProductsPage />} />
+              <Route path="/orders" element={<OrdersPage />} />
+              <Route path="/customers" element={<CustomersPage />} />
+              <Route path="/reports" element={<ReportsPage />} />
+              <Route path="/settings" element={<SettingsPage />} />
+            </Route>
 
-          <Route path="*" element={<Navigate to={"/"} replace />} />
-        </Routes>
-      </AuthProvider>
+            <Route path="*" element={<Navigate to={"/"} replace />} />
+          </Routes>
+        </AuthProvider>
+        <ReactQueryDevtools initialIsOpen={false} />
+      </QueryClientProvider>
     </BrowserRouter>
   </StrictMode>
 );
