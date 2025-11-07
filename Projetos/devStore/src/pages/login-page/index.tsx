@@ -3,27 +3,69 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { InputField } from "@/components/ui/input";
 import { useAuthContext } from "@/context/auth.context";
 import { ShieldCheck } from "lucide-react";
 import { useLocation, useNavigate } from "react-router";
+import { useForm } from "react-hook-form";
+import { Form } from "@/components/ui/form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+// Controlled Components - React controla o estado
+// useState + event
+// const [name, setName] = useState("");
+//  <Input
+//    id="name"
+//    type="text"
+//    placeholder="Digite seu nome"
+//    value={name}
+//    onChange={(e) => setName(e.target.value)}
+//  />
+
+// Uncontrolled Components - DOM
+// const inputRef = useRef(null);
+{
+  /* <Input
+      ref={inputNameRef}
+      id="name"
+      type="text"
+      placeholder="Digite seu nome"
+    /> */
+}
+
+// Componente Integrado ao RHF
+{
+  /* <InputField
+  control={form.control}
+  name="name"
+  label="Nome"
+  placeholder="Digite seu nome"
+/>; */
+}
+
+const loginSchema = z.object({
+  name: z.string(),
+  email: z.email("e-mail inválido"),
+});
 
 export const LoginPage = () => {
+  const form = useForm({
+    defaultValues: { name: "", email: "" },
+    resolver: zodResolver(loginSchema),
+  });
+
   const navigate = useNavigate();
   const { login } = useAuthContext();
   const { state } = useLocation();
 
-  const handleSubmit = () => {
-    login({ name: "Admin", email: "admin@dev.store", isAdmin: true }).then(
-      () => {
-        navigate(state?.path ?? "/dashboard");
-      }
-    );
+  const onSubmit = (data) => {
+    login({ name: data.name, email: data.email, isAdmin: true }).then(() => {
+      navigate(state?.path ?? "/dashboard");
+    });
   };
 
   return (
@@ -41,29 +83,27 @@ export const LoginPage = () => {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form>
-            <div className="flex flex-col gap-6">
-              <div className="grid gap-2">
-                <Label htmlFor="name">Nome</Label>
-                <Input id="name" type="text" placeholder="Digite seu nome" />
-              </div>
-              <div className="grid gap-2">
-                <Label htmlFor="email">Email</Label>
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="Digite seu E-mail"
-                  required
-                />
-              </div>
-            </div>
-          </form>
+          <Form {...form}>
+            <form
+              className="flex flex-col gap-6"
+              onSubmit={form.handleSubmit(onSubmit)}
+            >
+              <InputField
+                control={form.control}
+                name="name"
+                label="Nome"
+                placeholder="Digite seu nome"
+              />
+              <InputField
+                control={form.control}
+                name="email"
+                label="E-mail"
+                placeholder="Digite seu e-mail"
+              />
+              <Button type="submit">Entrar</Button>
+            </form>
+          </Form>
         </CardContent>
-        <CardFooter>
-          <Button type="submit" onClick={handleSubmit}>
-            Entrar
-          </Button>
-        </CardFooter>
       </Card>
     </div>
   );

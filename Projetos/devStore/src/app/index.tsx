@@ -18,12 +18,12 @@ import { StoreLayout } from "@/layouts/store-layout";
 import { AuthProvider, useAuthContext } from "@/context/auth.context";
 import { LoginPage } from "@/pages/login-page";
 import { AdminLayout } from "@/layouts/admin-layout";
+import { AdminProductsPage } from "@/pages/admin-products-page";
 
 // Public
 const ProductPage = () => <h1>Page - Visualizar Produto</h1>;
 // Private
 const DashboardPage = () => <h1>Page - Dashboard</h1>;
-const ProductsPage = () => <h1>Page - Produtos</h1>;
 const OrdersPage = () => <h1>Page - Pedidos</h1>;
 const CustomersPage = () => <h1>Page - Clientes</h1>;
 const ReportsPage = () => <h1>Page - Relatórios</h1>;
@@ -63,7 +63,7 @@ createRoot(document.getElementById("root")!).render(
             }
           >
             <Route path="/dashboard" element={<DashboardPage />} />
-            <Route path="/products" element={<ProductsPage />} />
+            <Route path="/products" element={<AdminProductsPage />} />
             <Route path="/orders" element={<OrdersPage />} />
             <Route path="/customers" element={<CustomersPage />} />
             <Route path="/reports" element={<ReportsPage />} />

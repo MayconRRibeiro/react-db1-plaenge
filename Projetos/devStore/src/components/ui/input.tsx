@@ -1,6 +1,14 @@
-import * as React from "react"
+import * as React from "react";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
+import {
+  FormField,
+  FormItem,
+  FormLabel,
+  FormControl,
+  FormMessage,
+} from "@/components/ui/form";
+import type { Control, FieldValues, Path } from "react-hook-form";
 
 function Input({ className, type, ...props }: React.ComponentProps<"input">) {
   return (
@@ -15,7 +23,37 @@ function Input({ className, type, ...props }: React.ComponentProps<"input">) {
       )}
       {...props}
     />
-  )
+  );
 }
 
-export { Input }
+interface InputFieldsProps<TFieldValues extends FieldValues>
+  extends React.ComponentProps<"input"> {
+  control: Control<TFieldValues>;
+  name: Path<TFieldValues>;
+  label: string;
+}
+
+function InputField<TFieldValues extends FieldValues>({
+  control,
+  name,
+  label,
+  ...props
+}: InputFieldsProps<TFieldValues>) {
+  return (
+    <FormField
+      control={control}
+      name={name}
+      render={({ field }) => (
+        <FormItem>
+          <FormLabel>{label}</FormLabel>
+          <FormControl>
+            <Input {...field} {...props} />
+          </FormControl>
+          <FormMessage />
+        </FormItem>
+      )}
+    />
+  );
+}
+
+export { Input, InputField };
