@@ -1,4 +1,5 @@
-import React, { useState, type PropsWithChildren } from "react";
+import { storageKeys } from "@/utils/constants";
+import React, { useEffect, useState, type PropsWithChildren } from "react";
 
 export interface User {
   name: string;
@@ -22,7 +23,10 @@ export const useAuthContext = () => {
 };
 
 export const AuthProvider = ({ children }: PropsWithChildren) => {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<User | null>(() => {
+    const storedUser = localStorage.getItem(storageKeys.user);
+    return storedUser ? JSON.parse(storedUser) : null;
+  });
 
   const login = (userData: User) =>
     new Promise<void>((resolve) => {
@@ -41,6 +45,12 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
     login,
     logout,
   };
+
+  useEffect(() => {
+    user
+      ? localStorage.setItem(storageKeys.user, JSON.stringify(user))
+      : localStorage.removeItem(storageKeys.user);
+  }, [user]);
 
   return (
     <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
