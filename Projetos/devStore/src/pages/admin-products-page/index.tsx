@@ -10,21 +10,10 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { useQuery } from "@tanstack/react-query";
-import { GetProdutosService } from "@/services/get-produtos.service";
+import { useQueryProdutos } from "@/hooks/use-query-produtos";
 
 export const AdminProductsPage = () => {
-  const {
-    data: produtos,
-    isLoading,
-    isError,
-  } = useQuery({
-    queryKey: ["produtos"],
-    queryFn: async () => {
-      const response = await new GetProdutosService().execute();
-      return response.data;
-    },
-  });
+  const { data: produtos } = useQueryProdutos();
 
   const handleNewProduct = () => {
     console.log("Novo produto");
