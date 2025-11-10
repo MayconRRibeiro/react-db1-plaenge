@@ -2,7 +2,7 @@ import fastify from "fastify";
 import fastifyStatic from "@fastify/static";
 import path from "path";
 import { fileURLToPath } from "url";
-import { AsyncDatabase } from "promised-sqlite3";
+import Database from "better-sqlite3";
 
 const server = fastify({
   logger: {
@@ -18,7 +18,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Initialize database connection
-const db = await AsyncDatabase.open("./store.sqlite");
+const db = new Database("./store.sqlite");
 
 // Register static file serving for product images
 server.register(fastifyStatic, {
@@ -33,14 +33,13 @@ server.get("/api/produtos", async function getProdutos(req, res) {
 
     let produtos;
     if (categoria) {
-      produtos = await db.all(
-        "SELECT id, nome, categoria, preco, estoque, descricao, caracteristicas, imagem FROM produtos WHERE categoria = ?",
-        [categoria]
-      );
+      produtos = db.prepare(
+        "SELECT id, nome, categoria, preco, estoque, descricao, caracteristicas, imagem FROM produtos WHERE categoria = ?"
+      ).all(categoria);
     } else {
-      produtos = await db.all(
+      produtos = db.prepare(
         "SELECT id, nome, categoria, preco, estoque, descricao, caracteristicas, imagem FROM produtos"
-      );
+      ).all();
     }
 
     // Parse caracteristicas from JSON string to array
@@ -64,10 +63,9 @@ server.get("/api/produto/:id", async function getProdutoById(req, res) {
   try {
     const { id } = req.params;
 
-    const produto = await db.get(
-      "SELECT id, nome, categoria, preco, estoque, descricao, caracteristicas, imagem FROM produtos WHERE id = ?",
-      [id]
-    );
+    const produto = db.prepare(
+      "SELECT id, nome, categoria, preco, estoque, descricao, caracteristicas, imagem FROM produtos WHERE id = ?"
+    ).get(id);
 
     if (!produto) {
       res.status(404).send({ error: "Produto não encontrado" });
@@ -134,17 +132,15 @@ server.post("/api/produto", async function postProduto(req, res) {
     const imagemUrl = imagem || "/public/produtos/default.jpg";
 
     // Insert into database
-    const result = await db.run(
+    const result = db.prepare(
       `INSERT INTO produtos (nome, categoria, preco, estoque, descricao, caracteristicas, imagem)
-       VALUES (?, ?, ?, ?, ?, ?, ?)`,
-      [nome, categoria, preco, estoque, descricao, caracteristicasJson, imagemUrl]
-    );
+       VALUES (?, ?, ?, ?, ?, ?, ?)`
+    ).run(nome, categoria, preco, estoque, descricao, caracteristicasJson, imagemUrl);
 
     // Get the inserted produto
-    const novoProduto = await db.get(
-      "SELECT id, nome, categoria, preco, estoque, descricao, caracteristicas, imagem FROM produtos WHERE id = ?",
-      [result.lastID]
-    );
+    const novoProduto = db.prepare(
+      "SELECT id, nome, categoria, preco, estoque, descricao, caracteristicas, imagem FROM produtos WHERE id = ?"
+    ).get(result.lastInsertRowid);
 
     // Parse caracteristicas back to array
     const parsedProduto = {
