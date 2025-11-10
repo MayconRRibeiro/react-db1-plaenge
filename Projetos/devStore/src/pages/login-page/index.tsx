@@ -62,7 +62,7 @@ export const LoginPage = () => {
   const { login } = useAuthContext();
   const { state } = useLocation();
 
-  const onSubmit = (data) => {
+  const onSubmit = (data: z.infer<typeof loginSchema>) => {
     login({ name: data.name, email: data.email, isAdmin: true }).then(() => {
       navigate(state?.path ?? "/dashboard");
     });

@@ -33,22 +33,21 @@ server.get("/api/produtos", async function getProdutos(req, res) {
 
     let produtos;
     if (categoria) {
-      produtos = db.prepare(
-        "SELECT id, nome, categoria, preco, estoque, descricao, caracteristicas, imagem FROM produtos WHERE categoria = ?"
-      ).all(categoria);
+      produtos = db
+        .prepare(
+          "SELECT id, nome, categoria, preco, estoque FROM produtos WHERE categoria = ?"
+        )
+        .all(categoria);
     } else {
-      produtos = db.prepare(
-        "SELECT id, nome, categoria, preco, estoque, descricao, caracteristicas, imagem FROM produtos"
-      ).all();
+      produtos = db
+        .prepare("SELECT id, nome, categoria, preco, estoque FROM produtos")
+        .all();
     }
 
     // Parse caracteristicas from JSON string to array
     const parsedProdutos = produtos.map((produto) => ({
       ...produto,
       id: String(produto.id),
-      caracteristicas: produto.caracteristicas
-        ? JSON.parse(produto.caracteristicas)
-        : [],
     }));
 
     res.send(parsedProdutos);
@@ -63,9 +62,11 @@ server.get("/api/produto/:id", async function getProdutoById(req, res) {
   try {
     const { id } = req.params;
 
-    const produto = db.prepare(
-      "SELECT id, nome, categoria, preco, estoque, descricao, caracteristicas, imagem FROM produtos WHERE id = ?"
-    ).get(id);
+    const produto = db
+      .prepare(
+        "SELECT id, nome, categoria, preco, estoque, descricao, caracteristicas, imagem FROM produtos WHERE id = ?"
+      )
+      .get(id);
 
     if (!produto) {
       res.status(404).send({ error: "Produto não encontrado" });
@@ -91,56 +92,96 @@ server.get("/api/produto/:id", async function getProdutoById(req, res) {
 // POST /api/produto - Create new produto
 server.post("/api/produto", async function postProduto(req, res) {
   try {
-    const { nome, categoria, preco, estoque, descricao, caracteristicas, imagem } = req.body;
+    const {
+      nome,
+      categoria,
+      preco,
+      estoque,
+      descricao,
+      caracteristicas,
+      imagem,
+    } = req.body;
 
     // Validation
-    if (!nome || !categoria || preco === undefined || estoque === undefined || !descricao) {
+    if (
+      !nome ||
+      !categoria ||
+      preco === undefined ||
+      estoque === undefined ||
+      !descricao
+    ) {
       res.status(400).send({
-        error: "Campos obrigatórios: nome, categoria, preco, estoque, descricao"
+        error:
+          "Campos obrigatórios: nome, categoria, preco, estoque, descricao",
       });
       return;
     }
 
     // Validate categoria
-    const categoriasValidas = ["Eletronicos", "Calcados", "Acessorios", "Roupas"];
+    const categoriasValidas = [
+      "Eletronicos",
+      "Calcados",
+      "Acessorios",
+      "Roupas",
+    ];
     if (!categoriasValidas.includes(categoria)) {
       res.status(400).send({
-        error: `Categoria inválida. Use: ${categoriasValidas.join(", ")}`
+        error: `Categoria inválida. Use: ${categoriasValidas.join(", ")}`,
       });
       return;
     }
 
     // Validate preco and estoque are numbers
     if (typeof preco !== "number" || preco <= 0) {
-      res.status(400).send({ error: "Preço deve ser um número maior que zero" });
+      res
+        .status(400)
+        .send({ error: "Preço deve ser um número maior que zero" });
       return;
     }
 
     if (typeof estoque !== "number" || estoque < 0) {
-      res.status(400).send({ error: "Estoque deve ser um número não negativo" });
+      res
+        .status(400)
+        .send({ error: "Estoque deve ser um número não negativo" });
       return;
     }
 
     // Validate caracteristicas is array if provided
     if (caracteristicas && !Array.isArray(caracteristicas)) {
-      res.status(400).send({ error: "Características devem ser um array de strings" });
+      res
+        .status(400)
+        .send({ error: "Características devem ser um array de strings" });
       return;
     }
 
     // Prepare data for database
-    const caracteristicasJson = caracteristicas ? JSON.stringify(caracteristicas) : null;
+    const caracteristicasJson = caracteristicas
+      ? JSON.stringify(caracteristicas)
+      : null;
     const imagemUrl = imagem || "/public/produtos/default.jpg";
 
     // Insert into database
-    const result = db.prepare(
-      `INSERT INTO produtos (nome, categoria, preco, estoque, descricao, caracteristicas, imagem)
+    const result = db
+      .prepare(
+        `INSERT INTO produtos (nome, categoria, preco, estoque, descricao, caracteristicas, imagem)
        VALUES (?, ?, ?, ?, ?, ?, ?)`
-    ).run(nome, categoria, preco, estoque, descricao, caracteristicasJson, imagemUrl);
+      )
+      .run(
+        nome,
+        categoria,
+        preco,
+        estoque,
+        descricao,
+        caracteristicasJson,
+        imagemUrl
+      );
 
     // Get the inserted produto
-    const novoProduto = db.prepare(
-      "SELECT id, nome, categoria, preco, estoque, descricao, caracteristicas, imagem FROM produtos WHERE id = ?"
-    ).get(result.lastInsertRowid);
+    const novoProduto = db
+      .prepare(
+        "SELECT id, nome, categoria, preco, estoque, descricao, caracteristicas, imagem FROM produtos WHERE id = ?"
+      )
+      .get(result.lastInsertRowid);
 
     // Parse caracteristicas back to array
     const parsedProduto = {
@@ -151,7 +192,9 @@ server.post("/api/produto", async function postProduto(req, res) {
         : [],
     };
 
-    req.log.info(`Novo produto criado: ${parsedProduto.nome} (ID: ${parsedProduto.id})`);
+    req.log.info(
+      `Novo produto criado: ${parsedProduto.nome} (ID: ${parsedProduto.id})`
+    );
 
     res.status(201).send(parsedProduto);
   } catch (error) {
@@ -164,7 +207,9 @@ const start = async () => {
   try {
     await server.listen({ port: PORT });
     console.log(`DevStore API Server listening on port ${PORT}`);
-    console.log(`Visit http://localhost:${PORT}/api/produtos to see all products`);
+    console.log(
+      `Visit http://localhost:${PORT}/api/produtos to see all products`
+    );
   } catch (err) {
     console.error(err);
     process.exit(1);

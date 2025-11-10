@@ -1,12 +1,23 @@
-interface Produto {
+interface ProdutoLite {
   id: string;
   nome: string;
   categoria: string;
   preco: number;
   estoque: number;
+}
+
+interface Produto extends ProdutoLite {
   descricao: string;
   caracteristicas: string[];
   imagem: string;
 }
 
-export type GetProdutosResponse = Produto[];
+export type GetProdutosResponse = ProdutoLite[];
+export type GetProdutoByIdResponse = Produto;
+
+export type CreateProdutoRequest = ProdutoLite & {
+  descricao: string;
+  caracteristicas?: string[];
+  imagem?: string;
+};
+export type CreateProdutoResponse = Produto;
