@@ -3,7 +3,6 @@ import * as SelectPrimitive from "@radix-ui/react-select";
 import { CheckIcon, ChevronDownIcon, ChevronUpIcon } from "lucide-react";
 
 import { cn } from "@/lib/utils";
-import { CATEGORIA_OPTIONS } from "@/utils/constants";
 import {
   FormField,
   FormItem,
@@ -179,13 +178,6 @@ function SelectScrollDownButton({
     </SelectPrimitive.ScrollDownButton>
   );
 }
-
-// function InputField<TFieldValues extends FieldValues>({
-//   control,
-//   name,
-//   label,
-//   ...props
-// }: InputFieldsProps<TFieldValues>) {
 
 interface SelectFieldsProps<
   TFieldValues extends FieldValues,

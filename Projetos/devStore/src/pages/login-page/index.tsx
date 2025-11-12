@@ -15,38 +15,6 @@ import { Form } from "@/components/ui/form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-// Controlled Components - React controla o estado
-// useState + event
-// const [name, setName] = useState("");
-//  <Input
-//    id="name"
-//    type="text"
-//    placeholder="Digite seu nome"
-//    value={name}
-//    onChange={(e) => setName(e.target.value)}
-//  />
-
-// Uncontrolled Components - DOM
-// const inputRef = useRef(null);
-{
-  /* <Input
-      ref={inputNameRef}
-      id="name"
-      type="text"
-      placeholder="Digite seu nome"
-    /> */
-}
-
-// Componente Integrado ao RHF
-{
-  /* <InputField
-  control={form.control}
-  name="name"
-  label="Nome"
-  placeholder="Digite seu nome"
-/>; */
-}
-
 const loginSchema = z.object({
   name: z.string(),
   email: z.email("e-mail inválido"),
