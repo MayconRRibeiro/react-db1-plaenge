@@ -1,7 +1,9 @@
+import type { TCategoriaEnum } from "./produtos.enums";
+
 interface ProdutoLite {
   id: string;
   nome: string;
-  categoria: string;
+  categoria: TCategoriaEnum;
   preco: number;
   estoque: number;
 }

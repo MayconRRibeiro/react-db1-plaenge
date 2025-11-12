@@ -1,37 +1,43 @@
-import { useState } from "react";
-import { ArrowLeft, Plus, X } from "lucide-react";
-import { useNavigate } from "react-router";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
-import { Input, InputField } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Form } from "@/components/ui/form";
-import { produtoKeys } from "@/utils/queries";
-import type { CreateProdutoRequest } from "@/types/produtos";
+import { Input, InputField } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { SelectField } from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
 import { PostProdutoService } from "@/services/post-produto.service";
+import type { CreateProdutoRequest } from "@/types/produtos";
+import { CategoriaEnum } from "@/types/produtos.enums";
+import { CATEGORIA_OPTIONS } from "@/utils/constants";
+import { produtoKeys } from "@/utils/queries";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { ArrowLeft, Plus, X } from "lucide-react";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router";
+import z from "zod";
 
-type FormData = {
-  nome: string;
-  categoria: string;
-  preco: string;
-  estoque: string;
-  descricao: string;
-};
+const AdminNewProductSchema = z.object({
+  nome: z.string().min(1, "Nome é obrigatório"),
+  categoria: z.enum(CategoriaEnum),
+  preco: z.string(),
+  estoque: z.string(),
+  descricao: z.string(),
+});
 
 export const AdminNewProductPage = () => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
-  const form = useForm<FormData>({
+  const form = useForm({
     defaultValues: {
       nome: "",
-      categoria: "",
+      categoria: CategoriaEnum.Acessorios,
       preco: "",
       estoque: "",
       descricao: "",
     },
+    resolver: zodResolver(AdminNewProductSchema),
   });
   const [features, setFeatures] = useState<string[]>([]);
   const [currentFeature, setCurrentFeature] = useState("");
@@ -64,7 +70,7 @@ export const AdminNewProductPage = () => {
     navigate("/products");
   };
 
-  const onSubmit = (data: FormData) => {
+  const onSubmit = (data: z.infer<typeof AdminNewProductSchema>) => {
     const productData: CreateProdutoRequest = {
       nome: data.nome,
       categoria: data.categoria,
@@ -104,16 +110,15 @@ export const AdminNewProductPage = () => {
                   name="nome"
                   label="Nome do Produto *"
                   placeholder="Ex: Notebook Dell XPS 13"
-                  required
                 />
 
-                <div className="grid grid-cols-2 gap-4">
-                  <InputField
+                <div className="grid grid-cols-2 gap-4 items-start">
+                  <SelectField
                     control={form.control}
+                    options={CATEGORIA_OPTIONS}
                     name="categoria"
                     label="Categoria *"
-                    placeholder="Ex: Eletrônicos, Calçados, etc."
-                    required
+                    placeholder="Selecione uma categoria"
                   />
 
                   <InputField
@@ -123,7 +128,6 @@ export const AdminNewProductPage = () => {
                     type="number"
                     step="0.01"
                     placeholder="0.00"
-                    required
                   />
                 </div>
 
@@ -133,7 +137,6 @@ export const AdminNewProductPage = () => {
                   label="Estoque *"
                   type="number"
                   placeholder="0"
-                  required
                 />
 
                 <div className="space-y-2">
@@ -146,7 +149,6 @@ export const AdminNewProductPage = () => {
                     placeholder="Descreva o produto em detalhes..."
                     rows={4}
                     {...form.register("descricao")}
-                    required
                   />
                 </div>
               </CardContent>
