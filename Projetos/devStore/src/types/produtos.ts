@@ -15,7 +15,7 @@ interface Produto extends ProdutoLite {
 export type GetProdutosResponse = ProdutoLite[];
 export type GetProdutoByIdResponse = Produto;
 
-export type CreateProdutoRequest = ProdutoLite & {
+export type CreateProdutoRequest = Omit<ProdutoLite, "id"> & {
   descricao: string;
   caracteristicas?: string[];
   imagem?: string;

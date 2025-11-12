@@ -22,6 +22,7 @@ import { AdminProductsPage } from "@/pages/admin-products-page";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "@/lib/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { AdminNewProductPage } from "@/pages/admin-new-product-page";
 
 // Public
 const ProductPage = () => <h1>Page - Visualizar Produto</h1>;
@@ -67,6 +68,7 @@ createRoot(document.getElementById("root")!).render(
               }
             >
               <Route path="/dashboard" element={<DashboardPage />} />
+              <Route path="/create-product" element={<AdminNewProductPage />} />
               <Route path="/products" element={<AdminProductsPage />} />
               <Route path="/orders" element={<OrdersPage />} />
               <Route path="/customers" element={<CustomersPage />} />

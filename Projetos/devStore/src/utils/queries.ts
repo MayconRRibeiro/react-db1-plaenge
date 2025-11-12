@@ -1,5 +1,5 @@
 export const produtoKeys = {
-  produto: ["produto"],
-  produtoId: (produtoId: string) => [...produtoKeys.produto, produtoId],
-  criarProduto: () => [...produtoKeys.produto, "post"],
+  produtos: ["produtos"],
+  produtoId: (produtoId: string) => [...produtoKeys.produtos, produtoId],
+  criarProduto: () => [...produtoKeys.produtos, "post"],
 };

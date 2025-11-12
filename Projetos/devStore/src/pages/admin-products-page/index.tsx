@@ -11,13 +11,18 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useQueryProdutos } from "@/hooks/use-query-produtos";
+import { useNavigate } from "react-router";
 
 export const AdminProductsPage = () => {
-  const { data: produtos } = useQueryProdutos();
+  const { data: produtos, isLoading, isError, error } = useQueryProdutos();
+  const navigate = useNavigate();
 
   const handleNewProduct = () => {
-    console.log("Novo produto");
+    navigate("/create-product");
   };
+
+  if (isLoading) return <span>Loading...</span>;
+  if (isError) return <span>Error: {error.message}</span>;
 
   return (
     <div className="space-y-6">
