@@ -47,9 +47,11 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   };
 
   useEffect(() => {
-    user
-      ? localStorage.setItem(storageKeys.user, JSON.stringify(user))
-      : localStorage.removeItem(storageKeys.user);
+    if (user) {
+      localStorage.setItem(storageKeys.user, JSON.stringify(user));
+    } else {
+      localStorage.removeItem(storageKeys.user);
+    }
   }, [user]);
 
   return (
