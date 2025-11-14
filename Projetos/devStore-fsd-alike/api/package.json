@@ -1,0 +1,20 @@
+{
+  "name": "devstore-api",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "description": "DevStore API Server",
+  "dependencies": {
+    "@fastify/static": "^7.0.4",
+    "better-sqlite3": "^11.8.0",
+    "fastify": "^4.28.1",
+    "pino-pretty": "^11.2.2"
+  }
+}
