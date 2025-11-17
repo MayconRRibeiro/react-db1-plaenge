@@ -2,31 +2,42 @@ import globals from "globals";
 import tseslint from "typescript-eslint";
 import { defineConfig, globalIgnores } from "eslint/config";
 
-import pluginQuery from "./packages/eslint/eslint-plugin-query.mjs";
 import defaultRules from "./packages/eslint/eslint-default-rules.mjs";
-import reactHooks from "./packages/eslint/eslint-plugin-react-hooks.mjs";
+import pluginQuery from "./packages/eslint/eslint-plugin-query.mjs";
+import pluginReactHooks from "./packages/eslint/eslint-plugin-react-hooks.mjs";
 import pluginReactRefresh from "./packages/eslint/eslint-plugin-react-refresh.mjs";
+import pluginBoundaries from "./packages/eslint/eslint-plugin-boundaries.mjs";
 
-export default defineConfig([
+export default defineConfig(
   globalIgnores(["dist"]),
+
   {
-    files: ["**/*.{ts,tsx}"],
     extends: [
       defaultRules,
+      ...tseslint.configs.recommended,
       pluginQuery,
-      reactHooks,
+      pluginReactHooks,
       pluginReactRefresh,
-      tseslint.configs.recommended,
+      pluginBoundaries,
     ],
     rules: {
       "react-refresh/only-export-components": "off",
     },
+    files: ["**/*.{ts,tsx}"],
     languageOptions: {
-      ecmaVersion: 2020,
       globals: globals.browser,
+      ecmaVersion: "latest",
       sourceType: "module",
       parser: tseslint.parser,
       parserOptions: { ecmaFeatures: { jsx: true } },
     },
   },
-]);
+  {
+    files: ["api/**/*/*.js"],
+    languageOptions: {
+      globals: globals.node,
+      ecmaVersion: "latest",
+      sourceType: "module",
+    },
+  }
+);
