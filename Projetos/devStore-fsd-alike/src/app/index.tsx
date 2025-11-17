@@ -10,19 +10,19 @@ import {
 
 import "./index.css";
 
-import HomePage from "@/pages/home-page";
-import { CartPage } from "@/pages/cart-page";
-import { WishListPage } from "@/pages/wishlist-page";
-import { ProductsListPage } from "@/pages/products-list-page";
+import HomePage from "@/pages/home";
+import { CartPage } from "@/pages/shopping-cart";
+import { WishListPage } from "@/pages/wishlist";
+import { ProductsListPage } from "@/pages/products-list";
 import { StoreLayout } from "@/layouts/store-layout";
-import { AuthProvider, useAuthContext } from "@/context/auth.context";
-import { LoginPage } from "@/pages/login-page";
+import { AuthProvider, useAuthContext } from "@/shared/context/auth.context";
+import { LoginPage } from "@/pages/login";
 import { AdminLayout } from "@/layouts/admin-layout";
-import { AdminProductsPage } from "@/pages/admin-products-page";
+import { AdminProductsPage } from "@/pages/admin-products";
 import { QueryClientProvider } from "@tanstack/react-query";
-import { queryClient } from "@/lib/react-query";
+import { queryClient } from "@/shared/lib/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { AdminNewProductPage } from "@/pages/admin-new-product-page";
+import { AdminNewProductPage } from "@/pages/admin-new-product";
 
 // Public
 const ProductPage = () => <h1>Page - Visualizar Produto</h1>;

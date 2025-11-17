@@ -9,8 +9,8 @@ import {
   Settings,
 } from "lucide-react";
 import { NavLink, Outlet, useLocation } from "react-router";
-import { Button } from "@/components/ui/button";
-import { useAuthContext } from "@/context/auth.context";
+import { Button } from "@/shared/ui/button";
+import { useAuthContext } from "@/shared/context/auth.context";
 import {
   Sidebar,
   SidebarContent,
@@ -23,7 +23,7 @@ import {
   SidebarMenuItem,
   SidebarProvider,
   SidebarTrigger,
-} from "@/components/ui/sidebar";
+} from "@/shared/ui/sidebar";
 
 const menuItems = [
   { id: "1", label: "Dashboard", icon: LayoutDashboard, path: "/dashboard" },

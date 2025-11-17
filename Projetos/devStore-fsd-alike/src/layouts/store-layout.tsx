@@ -1,9 +1,9 @@
-import { Button } from "@/components/ui/button";
+import { Button } from "@/shared/ui/button";
 import {
   InputGroup,
   InputGroupInput,
   InputGroupAddon,
-} from "@/components/ui/input-group";
+} from "@/shared/ui/input-group";
 import { Heart, SearchIcon, ShoppingCart, Store, UserCog } from "lucide-react";
 import { Outlet, useNavigate } from "react-router";
 
